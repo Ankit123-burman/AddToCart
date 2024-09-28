@@ -9,25 +9,20 @@ import shoe4 from './asset/shoe4.jpeg';
 const App = () => {
   const [cart, setCart] = useState([]);
 
-  const shoes = [
-    { id: 1, name: 'Nike Air', price: 100, img: shoe1},
-    { id: 2, name: 'Adidas Boost', price: 120, img: shoe4 },
-    { id: 3, name: 'Puma Pro', price: 90, img: shoe3 }
+  let shoes = [
+    { id: 1, name: 'Nike Air', price: 100, img: shoe1, quantity:0},
+    { id: 2, name: 'Adidas Boost', price: 120, img: shoe4,quantity:0 },
+    { id: 3, name: 'Puma Pro', price: 90, img: shoe3,quantity:0 },
+    { id: 4, name: 'Puma max Pro', price: 900, img: shoe3,quantity:0 }
   ];
   
 
   const addToCart = (shoe) => {
     const existingShoe = cart.find((item) => item.id === shoe.id);
-    if (existingShoe) {
-      setCart(
-        cart.map((item) =>
-          item.id === shoe.id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        )
-      );
-    } else {
-      setCart([...cart, { ...shoe, quantity: 1 }]);
+    console.log(cart)
+    if(!existingShoe){
+      shoe.quantity=1;
+      setCart( (prev) =>  [...cart,shoe]);
     }
   };
 
@@ -50,7 +45,7 @@ const App = () => {
     <div className="container">
    
       <ShoeList shoes={shoes} addToCart={addToCart} />
-      <Cart cart={cart} removeFromCart={removeFromCart} />
+      <Cart cart={cart} setcart={setCart} removeFromCart={removeFromCart} />
     </div>
   );
 };
